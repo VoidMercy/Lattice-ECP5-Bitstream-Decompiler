@@ -50,7 +50,7 @@ File is in `example/counter.v` and bitfile compiled with Project Trellist and ne
 
 The netlist is pretty much unreadable. Most of the PLC2 tiles used are present in the netlist and the routing between them as well. It will look something like this if visualized with Vivado:
 
-[](images/image1.png)
+![](images/image1.png)
 
 However, we can use yosys and vivado to lift the standard cells into simplified RTL representation with the following yosys script:
 
@@ -66,7 +66,7 @@ write_verilog synth.v
 
 It looks like this visualized with Vivado:
 
-[](images/image2.png)
+![](images/image2.png)
 
 The logic is perfect. I've written a testbench, connected the ports, and simulated the counter - it works perfectly.
 
