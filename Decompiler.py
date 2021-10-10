@@ -49,7 +49,7 @@ class Graph:
 				if "PLC2" not in p and not p.endswith("_EBR") and not ("CIB_" in p and p.endswith("HFIE0000")) and not ("CIB_" in p and p.endswith("HL7W0001")) and p != "1'b0":
 					cur_reachable_children = self.find_all_reachable_children(p)
 					if len(cur_reachable_children.intersection(seen_children)) == 0:
-						top_ports.add("input wire {}".format(p))
+						top_ports.add("input {}".format(p))
 						self.dfs_traverse_down(p, pr=True)
 					else:
 						print("Input Duplicate", p)
@@ -62,7 +62,7 @@ class Graph:
 				if "PLC2" not in p and not p.endswith("_EBR") and not ("CIB_" in p and p.endswith("HFIE0000")) and not ("CIB_" in p and p.endswith("HL7W0001")) and p != "1'b0":
 					cur_reachable_parents = self.find_all_reachable_parent(p)
 					if len(cur_reachable_parents.intersection(seen_parents)) == 0:
-						top_ports.add("output wire {}".format(p))
+						top_ports.add("output {}".format(p))
 						self.dfs_traverse_up(p, pr=True)
 					else:
 						print("Output Duplicate", p)
@@ -347,10 +347,14 @@ class Tile:
 			self.internal_signals.add(source)
 			if "_" in source:
 				self.internal_ports.add(source)
+		else:
+			self.global_ports.add(source)
 		if not signal_is_global(sink):
 			self.internal_signals.add(sink)
 			if "_" in sink:
 				self.internal_ports.add(sink)
+		else:
+			self.global_ports.add(sink)
 		self.arcs.append((source, sink))
 
 	def add_enum(self, name, value):
@@ -414,7 +418,7 @@ class ECP5:
 			elif i.startswith(".tile"):
 				tile_name = i.split()[1]
 				# Mismatch with db?
-				tile_name = tile_name.replace("CIB_DCU", "VCIB_DCU")
+				# tile_name = tile_name.replace("CIB_DCU", "VCIB_DCU")
 				current_tile = self.tile_dict[tile_name]
 			elif i.startswith("arc:"):
 				arc_sink = i.split()[1]

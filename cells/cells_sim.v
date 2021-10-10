@@ -268,7 +268,7 @@ module TRELLIS_FF(input CLK, LSR, CE, DI, M, output reg Q);
 		end
 	endgenerate
 
-	// initial Q = srval;
+	initial Q = srval;
 
 	generate
 		if (SRMODE == "ASYNC") begin
