@@ -247,9 +247,6 @@ module tile_PLC2 (
 	parameter SLICED_SRMODE = "LSR_OVER_CE";
 	parameter SLICED_LSRMUX = "LSR";
 
-	// Carries
-	wire FCOB_SLICE, FCOC_SLICE;
-
 	TRELLIS_SLICE #(
 		.A0MUX(SLICEA_A0MUX),
 		.A1MUX(SLICEA_A1MUX),
